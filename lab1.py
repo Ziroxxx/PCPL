@@ -37,17 +37,24 @@ def get_roots(a, b, c):
     Returns:
         list[float]: Список корней
     '''
-    result = []
+    result_quadro = []
     D = b * b - 4 * a * c
     if D == 0.0:
         root = -b / (2.0 * a)
-        result.append(root)
+        result_quadro.append(root)
     elif D > 0.0:
         sqD = math.sqrt(D)
         root1 = (-b + sqD) / (2.0 * a)
         root2 = (-b - sqD) / (2.0 * a)
-        result.append(root1)
-        result.append(root2)
+        result_quadro.append(root1)
+        result_quadro.append(root2)
+    result = []
+    for i in range(0, len(result_quadro)):
+        if result_quadro[i] > 0.0:
+            result.append(math.sqrt(result_quadro[i]))
+            result.append(-1*math.sqrt(result_quadro[i]))
+        elif result_quadro[i] == 0.0:
+            result.append(math.sqrt(result_quadro[i]))
     return result
 
 
@@ -68,6 +75,10 @@ def main():
         print('Один корень: {}'.format(roots[0]))
     elif len_roots == 2:
         print('Два корня: {} и {}'.format(roots[0], roots[1]))
+    elif len_roots == 3:
+        print('Три корня: {}, {} и {}'.format(roots[0], roots[1], roots[2]))
+    elif len_roots == 4:
+        print('Четыре корня: {}, {}, {} и {}'.format(roots[0], roots[1], roots[2], roots[3]))
 
 
 # Если сценарий запущен из командной строки
