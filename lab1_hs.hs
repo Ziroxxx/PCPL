@@ -3,9 +3,11 @@ module Main where
 import System.Environment (getArgs)
 
 -- Функция, находящая корни биквадратного уравнения
-solveBiQuadratic :: (Ord a, Floating a) => a -> a -> a -> [a]
+solveBiQuadratic :: (Ord a, Floating a, RealFloat a) => a -> a -> a -> [a]
 solveBiQuadratic a b c
-    | discriminant >= 0 = [sqrt x1, -sqrt x1, sqrt x2, -sqrt x2]
+    | x1 == 0 = filter (not.isNaN) [sqrt x1, sqrt x2, -sqrt x2]
+    | x2 == 0 = filter (not.isNaN) [sqrt x1, -sqrt x1, sqrt x2]
+    | discriminant >= 0 = filter (not.isNaN) [sqrt x1, -sqrt x1, sqrt x2, -sqrt x2]
     | otherwise = []
   where
     discriminant = b * b - 4 * a * c
